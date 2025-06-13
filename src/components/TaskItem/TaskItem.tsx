@@ -4,12 +4,16 @@ import { TaskItemProps } from '../../types';
 export const TaskItem: React.FC<TaskItemProps> = ({ task, onStatusChange, onDelete }) => {
   const { id, title, description, status, priority, dueDate } = task;
 
-  // Determine style based on status
-  const itemClass = status === 'completed' ? 'line-through opacity-50' : '';
+  // Build class list based on status and priority
+  const classes = [
+    'task-item',
+    status === 'completed' ? 'task-completed' : '',
+    `priority-${priority}`,
+  ].join(' ');
 
   return (
-    <div className={`p-4 mb-2 border rounded ${itemClass}`} key={id}>
-      {/* Task header */}
+    <div className={classes}>
+      {/* Header: title and delete button */}
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-semibold">{title}</h3>
         <button onClick={() => onDelete(id)} aria-label="Delete task">
@@ -31,9 +35,10 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onStatusChange, onDele
         <option value="completed">Completed</option>
       </select>
 
-      {/* Footer with priority and due date */}
+      {/* Footer: priority and formatted due date */}
       <div className="text-sm text-gray-600">
-        <span>Priority: {priority}</span> | <span>Due: {new Date(dueDate).toLocaleDateString()}</span>
+        <span>Priority: {priority}</span> |{' '}
+        <span>Due: {new Date(dueDate).toLocaleDateString()}</span>
       </div>
     </div>
   );
