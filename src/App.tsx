@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { TaskList } from './components/TaskList/TaskList';
+import { TaskForm } from './components/TaskForm/TaskForm';
 import type { Task, TaskStatus } from './types';
 
 const initialTasks: Task[] = [
@@ -50,6 +51,15 @@ const initialTasks: Task[] = [
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
+  const handleAddTask = (newTask: Omit<Task, 'id' | 'status'> & { status?: TaskStatus }) => {
+    const task: Task = {
+      id: Date.now().toString(),
+      status: 'pending',
+      ...newTask,
+    };
+    setTasks(prev => [task, ...prev]);
+  };
+
   const handleStatusChange = (id: string, newStatus: TaskStatus) => {
     setTasks(prev =>
       prev.map(t => (t.id === id ? { ...t, status: newStatus } : t))
@@ -62,6 +72,7 @@ export default function App() {
 
   return (
     <div className="max-w-xl mx-auto p-4">
+      <TaskForm onAdd={handleAddTask} />
       <TaskList
         tasks={tasks}
         onStatusChange={handleStatusChange}
@@ -70,4 +81,3 @@ export default function App() {
     </div>
   );
 }
-
