@@ -48,5 +48,26 @@ const initialTasks: Task[] = [
 ];
 
 export default function App() {
-  // ...rest of your code
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+
+  const handleStatusChange = (id: string, newStatus: TaskStatus) => {
+    setTasks(prev =>
+      prev.map(t => (t.id === id ? { ...t, status: newStatus } : t))
+    );
+  };
+
+  const handleDelete = (id: string) => {
+    setTasks(prev => prev.filter(t => t.id !== id));
+  };
+
+  return (
+    <div className="max-w-xl mx-auto p-4">
+      <TaskList
+        tasks={tasks}
+        onStatusChange={handleStatusChange}
+        onDelete={handleDelete}
+      />
+    </div>
+  );
 }
+
