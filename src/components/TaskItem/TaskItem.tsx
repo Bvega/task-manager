@@ -1,19 +1,23 @@
-import React from 'react';
-import { TaskItemProps } from '../../types';
+import type { TaskItemProps } from '../../types';
 
-export const TaskItem: React.FC<TaskItemProps> = ({ task, onStatusChange, onDelete }) => {
+export function TaskItem({ task, onStatusChange, onDelete }: TaskItemProps) {
   const { id, title, description, status, priority, dueDate } = task;
 
-  // Build class list based on status and priority
   const classes = [
     'task-item',
     status === 'completed' ? 'task-completed' : '',
     `priority-${priority}`,
   ].join(' ');
 
+  const statuses: Array<{ key: typeof status; label: string }> = [
+    { key: 'pending', label: 'Pending' },
+    { key: 'in-progress', label: 'In Progress' },
+    { key: 'completed', label: 'Completed' },
+  ];
+
   return (
     <div className={classes}>
-      {/* Header: title and delete button */}
+      {/* Header */}
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-semibold">{title}</h3>
         <button onClick={() => onDelete(id)} aria-label="Delete task">
@@ -24,22 +28,28 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onStatusChange, onDele
       {/* Description */}
       <p className="mb-2">{description}</p>
 
-      {/* Status selector */}
-      <select
-        value={status}
-        onChange={(e) => onStatusChange(id, e.target.value as any)}
-        className="mb-2"
-      >
-        <option value="pending">Pending</option>
-        <option value="in-progress">In Progress</option>
-        <option value="completed">Completed</option>
-      </select>
+      {/* Status badges */}
+      <div className="status-badges">
+        {statuses.map(s => (
+          <span
+            key={s.key}
+            className={[
+              'status-badge',
+              s.key,
+              status === s.key ? 'selected' : '',
+            ].join(' ')}
+            onClick={() => onStatusChange(id, s.key)}
+          >
+            {s.label}
+          </span>
+        ))}
+      </div>
 
-      {/* Footer: priority and formatted due date */}
+      {/* Priority & Due Date */}
       <div className="text-sm text-gray-600">
         <span>Priority: {priority}</span> |{' '}
         <span>Due: {new Date(dueDate).toLocaleDateString()}</span>
       </div>
     </div>
   );
-};
+}
