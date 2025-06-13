@@ -1,0 +1,8 @@
+- [ ] Set up Vite React TypeScript project for Lab 3
+- [ ] Create src/components and src/types folder structure
+- [ ] Define Task, TaskStatus, and prop interfaces in src/types/index.ts
+- [ ] Implement TaskItem component with proper rendering, conditional logic, and handlers
+- [ ] Implement TaskFilter component with filter controls for status and priority
+- [ ] Implement TaskList component to integrate TaskItem and TaskFilter, handle state, filtering, and deletions
+- [ ] Add conditional rendering and styling based on task status and priority
+- [ ] Commit initial setup and each major feature to GitHub repository
