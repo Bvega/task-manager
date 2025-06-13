@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useState } from 'react';
+import { TaskList } from './components/TaskList/TaskList';
+import type { Task, TaskStatus } from './types';
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+const initialTasks: Task[] = [
+  {
+    id: '1',
+    title: 'Design landing page',
+    description: 'Create the initial wireframe and mockups for the landing page.',
+    status: 'pending',
+    priority: 'high',
+    dueDate: '2025-06-20',
+  },
+  {
+    id: '2',
+    title: 'Set up CI/CD pipeline',
+    description: 'Configure GitHub Actions for automated testing and deployment.',
+    status: 'pending',
+    priority: 'medium',
+    dueDate: '2025-06-18',
+  },
+  {
+    id: '3',
+    title: 'Fix login bug',
+    description: 'Resolve the issue where users can’t log in with Google OAuth.',
+    status: 'in-progress',
+    priority: 'high',
+    dueDate: '2025-06-14',
+  },
+  {
+    id: '4',
+    title: 'Write unit tests',
+    description: 'Add coverage for the user service module.',
+    status: 'in-progress',
+    priority: 'low',
+    dueDate: '2025-06-22',
+  },
+  {
+    id: '5',
+    title: 'Deploy to staging',
+    description: 'Push the latest build to the staging environment for QA.',
+    status: 'completed',
+    priority: 'medium',
+    dueDate: '2025-06-10',
+  },
+];
+
+export default function App() {
+  // ...rest of your code
 }
-
-export default App
